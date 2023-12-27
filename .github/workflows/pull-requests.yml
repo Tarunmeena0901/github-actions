@@ -32,5 +32,5 @@ jobs:
         python-version: 3.9
 
     - name: Run file counting script
-      run: python .github/workflows/countfiles.py        
+      run: python .github/workflows/countfile.py        
   
