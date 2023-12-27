@@ -19,7 +19,4 @@ jobs:
           python-version: 3.9
 
       - name: Run Python script with base branch name
-        run: |
-          base_branch=${GITHUB_BASE_REF}
-          echo "Base branch: $base_branch"
-          python .github/workflows/check_changed_files.py "${base_branch}"
+        run: python .github/workflows/check_changed_files.py
