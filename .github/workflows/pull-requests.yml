@@ -1,36 +1,31 @@
-##############################################################################
-##############################################################################
-#
-# NOTE!
-#
-# Please read the README.md file in this directory that defines what should
-# be placed in this file
-#
-##############################################################################
-##############################################################################
+name: Check File Changes
 
-name: PR Workflow
 on:
   pull_request:
-    branches:
-      - '**'
+    paths:
+      - '**/*'
 
-env:
-    CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
-    
 jobs:
-
   count-files:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v3
-      with:
-        python-version: 3.9
+      - name: Count changed files
+        id: count-files
+        run: |
+          file_count=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | wc -l)
+          echo "File count: $file_count"
+          echo "::set-output name=file_count::$file_count"
 
-    - name: Run file counting script
-      run: python .github/workflows/countfile.py        
-  
+      - name: Check file count
+        run: |
+          if [ ${{ steps.count-files.outputs.file_count }} -gt 20 ]; then
+            echo "Error: Too many files (greater than 20) changed in the pull request."
+            echo "Possible issues:"
+            echo "- Contributor may be merging into an incorrect branch."
+            echo "- Source branch may be incorrect."
+            exit 1
+          fi
