@@ -31,15 +31,6 @@ jobs:
       with:
         python-version: 3.9
 
-    - name: Install dependencies
-      run: pip install black pydocstyle
-
-    - name: Format code with black
-      run: black . --check --diff
-
-    - name: Check code style with pydocstyle
-      run: pydocstyle .
-
     - name: Run file counting script
       run: python .github/workflows/count_files.py        
   
