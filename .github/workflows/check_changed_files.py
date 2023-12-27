@@ -6,6 +6,7 @@ def get_current_branch():
         # Run git command to get the current branch
         command = "git rev-parse --abbrev-ref HEAD"
         current_branch = os.popen(command).read().strip()
+        print(current_branch)
         return current_branch
     except Exception as e:
         print(f"Error: {e}")
@@ -16,6 +17,7 @@ def get_base_branch():
         # Run git command to get the base branch
         command = "git rev-parse --abbrev-ref HEAD"
         base_branch = os.popen(command).read().strip()
+        print(base_branch)
         return base_branch
     except Exception as e:
         print(f"Error: {e}")
