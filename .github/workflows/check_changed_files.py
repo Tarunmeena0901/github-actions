@@ -40,8 +40,9 @@ def main():
     try:
         # Get base commit, current commit, and base branch from command line arguments
         base_branch = get_base_branch()
+        print(base_branch)
         current_branch = get_current_branch()
-
+        print(current_branch)
         # Count changed files
         file_count = count_changed_files(base_branch , current_branch)
 
