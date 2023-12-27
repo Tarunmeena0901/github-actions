@@ -4,7 +4,7 @@ import sys
 def get_current_branch():
     try:
         # Run git command to get the current branch
-        command = "git rev-parse --abbrev-ref HEAD"
+        command = "git branch --show-current"
         current_branch = os.popen(command).read().strip()
         print(current_branch)
         return current_branch
@@ -15,7 +15,7 @@ def get_current_branch():
 def get_base_branch():
     try:
         # Run git command to get the base branch
-        command = "git rev-parse --abbrev-ref HEAD"
+        command = "git remote show origin | grep 'HEAD branch' | cut -d':' -f2 | xargs"
         base_branch = os.popen(command).read().strip()
         print(base_branch)
         return base_branch
