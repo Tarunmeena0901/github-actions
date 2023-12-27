@@ -1,10 +1,30 @@
 import os
 import sys
 
-def count_changed_files(base_branch):
+def get_current_branch():
+    try:
+        # Run git command to get the current branch
+        command = "git rev-parse --abbrev-ref HEAD"
+        current_branch = os.popen(command).read().strip()
+        return current_branch
+    except Exception as e:
+        print(f"Error: {e}")
+        sys.exit(1)
+
+def get_base_branch():
+    try:
+        # Run git command to get the base branch
+        command = "git rev-parse --abbrev-ref HEAD"
+        base_branch = os.popen(command).read().strip()
+        return base_branch
+    except Exception as e:
+        print(f"Error: {e}")
+        sys.exit(1)
+
+def count_changed_files(base_branch , current_branch):
     try:
         # Run git command to get the list of changed files
-        command = f"git diff --name-only {base_branch}"
+        command = f"git diff --name-only {base_branch}..{current_branch}"
         changed_files = os.popen(command).read().splitlines()
 
         # Count the number of changed files
@@ -17,10 +37,11 @@ def count_changed_files(base_branch):
 def main():
     try:
         # Get base commit, current commit, and base branch from command line arguments
-        base_branch = sys.argv[1]
+        base_branch = get_base_branch()
+        current_branch = get_current_branch()
 
         # Count changed files
-        file_count = count_changed_files(base_branch)
+        file_count = count_changed_files(base_branch , current_branch)
 
         print(f"Number of changed files: {file_count}")
 
