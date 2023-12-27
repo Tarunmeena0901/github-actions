@@ -1,10 +1,10 @@
 import os
 import sys
 
-def count_changed_files(base_commit, current_commit):
+def count_changed_files(base_branch):
     try:
         # Run git command to get the list of changed files
-        command = f"git diff --name-only {base_commit} {current_commit}"
+        command = f"git diff --name-only {base_branch}"
         changed_files = os.popen(command).read().splitlines()
 
         # Count the number of changed files
@@ -16,12 +16,11 @@ def count_changed_files(base_commit, current_commit):
 
 def main():
     try:
-        # Get base and current commit from command line arguments
-        base_commit = sys.argv[1]
-        current_commit = sys.argv[2]
+        # Get base commit, current commit, and base branch from command line arguments
+        base_branch = sys.argv[1]
 
         # Count changed files
-        file_count = count_changed_files(base_commit, current_commit)
+        file_count = count_changed_files(base_branch)
 
         print(f"Number of changed files: {file_count}")
 
@@ -34,7 +33,7 @@ def main():
             sys.exit(1)
 
     except IndexError:
-        print("Error: Please provide base commit and current commit as command line arguments.")
+        print("Error: Please provide base commit, current commit, and base branch as command line arguments.")
         sys.exit(1)
 
 if __name__ == "__main__":
