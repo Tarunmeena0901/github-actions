@@ -18,9 +18,8 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: Get base branch name
-        id: get-base-branch
-        run: echo "::set-output name=base_branch::${GITHUB_BASE_REF}"
-
-      - name: Run Python script
-        run: python .github/workflows/check_changed_files.py "${{ steps.get-base-branch.outputs.base_branch }}"
+      - name: Run Python script with base branch name
+        run: |
+          base_branch=${GITHUB_BASE_REF}
+          echo "Base branch: $base_branch"
+          python .github/workflows/check_changed_files.py "${base_branch}"
