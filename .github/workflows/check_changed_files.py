@@ -3,6 +3,8 @@ import sys
 
 def count_changed_files(base_branch, current_branch):
     try:
+        base_branch = f"origin/{base_branch}"
+        current_branch = f"origin/{current_branch}"
         # Run git command to get the list of changed files
         command = f"git diff --name-only {base_branch}..{current_branch} | wc -l"
         file_count = int(os.popen(command).read().strip())
