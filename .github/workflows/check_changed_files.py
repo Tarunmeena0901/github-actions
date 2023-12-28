@@ -15,7 +15,9 @@ def main():
     try:
         # Get base branch and current commit
         base_branch = sys.argv[1]
+        print(base_branch)
         current_commit = sys.argv[2]
+        print(current_branch)
 
         # Count changed files
         file_count = count_changed_files(base_branch, current_commit)
