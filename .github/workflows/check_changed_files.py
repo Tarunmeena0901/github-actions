@@ -4,7 +4,7 @@ import sys
 def get_current_branch():
     try:
         # Run git command to get the current branch
-        command = "git ls-remote origin HEAD"
+        command = "git ls-remote origin HEAD | awk '{print $1}'"
         current_branch = os.popen(command).read().strip()
         print(current_branch)
         return current_branch
@@ -27,7 +27,8 @@ def count_changed_files(base_branch):
     try:
         # Run git command to get the list of changed files
         command = f"git diff --name-only {base_branch}"
-        changed_files = os.popen(command).read().splitlines()
+        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+        changed_files = result.stdout.splitlines()
 
         # Count the number of changed files
         file_count = len(changed_files)
