@@ -6,7 +6,7 @@ def count_changed_files(base_branch, current_branch):
         base_branch = f"origin/{base_branch}"
         current_branch = f"origin/{current_branch}"
         # Run git command to get the list of changed files
-        command = f"git diff --name-only {base_branch}..{current_branch} | wc -l"
+        command = f"git diff --name-only {base_branch}...{current_branch} | wc -l"
         file_count = int(os.popen(command).read().strip())
         return file_count
     except Exception as e:
