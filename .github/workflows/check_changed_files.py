@@ -16,7 +16,7 @@ def get_current_branch():
 def get_base_branch():
     try:
         # Run git command to get the base branch
-        command = "git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'"
+        command = "git remote show origin | awk '/HEAD branch/ {print $NF}'"
         base_branch = os.popen(command).read().strip()
         print(base_branch)
         return base_branch
