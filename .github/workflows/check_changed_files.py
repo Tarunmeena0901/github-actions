@@ -26,7 +26,7 @@ def get_base_branch():
 def count_changed_files(base_branch):
     try:
         # Run git command to get the list of changed files
-        command = f"git diff --name-only {base_branch}"
+        command = f"git diff --name-only {current_branch}"
         changed_files = os.popen(command).read().splitlines()
 
         # Count the number of changed files
