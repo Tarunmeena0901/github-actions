@@ -1,4 +1,4 @@
-name: Limit File Changes
+name: Check File Changes
 
 on:
   pull_request:
@@ -6,23 +6,12 @@ on:
       - '**/*'
 
 jobs:
-  limit-file-changes:
+  check-files:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Count Changed Files
-        id: count-files
-        run: echo "::set-output name=changed_files::$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | wc -l)"
-
-      - name: Check File Changes Limit
-        run: |
-          changedFiles=${{ steps.count-files.outputs.changed_files }}
-          if [ $changedFiles -gt 20 ]; then
-            echo "Error: Too many file changes ($changedFiles). Maximum allowed is 20."
-            exit 1
-          else
-            echo "File changes within limit ($changedFiles)."
-          fi
+      - name: Run Python script
+        run: python .github/workflows/check_changed_files.py "${{ github.base_ref }}" "${{ github.sha }}"
