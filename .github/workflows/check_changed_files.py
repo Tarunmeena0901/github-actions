@@ -29,8 +29,10 @@ def count_changed_files(base_branch):
         # Run git command to get the list of changed files
         command = f"git diff --name-only {base_branch} | wc -l"
         result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-        # Split the output into lines and count the number of lines
-        file_count = result
+        # Access the stdout attribute to get the command output
+        output = result.stdout
+        # Convert the output to an integer to get the file count
+        file_count = int(output.strip())
         return file_count
     except Exception as e:
         print(f"Error: {e}")
