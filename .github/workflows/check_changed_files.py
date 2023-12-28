@@ -44,7 +44,7 @@ def main():
         current_branch = get_current_branch()
         print(current_branch)
         # Count changed files
-        file_count = count_changed_files(base_branch)
+        file_count = count_changed_files(current_branch)
 
         print(f"Number of changed files: {file_count}")
 
