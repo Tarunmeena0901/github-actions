@@ -19,4 +19,4 @@ jobs:
           python-version: 3.9
 
       - name: Run Python script
-        run: python .github/workflows/check_changed_files.py "${{ github.base_ref }}" "${{ github.sha }}"
+        run: python .github/workflows/check_changed_files.py "${{ github.base_ref }}" "${{ github.head_ref }}"
