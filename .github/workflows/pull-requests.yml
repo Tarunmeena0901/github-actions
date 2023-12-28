@@ -2,8 +2,8 @@ name: Check File Changes
 
 on:
   pull_request:
-    paths:
-      - '**/*'
+    branches:
+      - '**'
 
 jobs:
   count-files:
