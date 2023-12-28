@@ -6,9 +6,9 @@ on:
       - '**/*'
 
 jobs:
-  count-files:
+  check-files:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -18,5 +18,5 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: Run Python script with base branch name
-        run: python .github/workflows/check_changed_files.py
+      - name: Run Python script
+        run: python .github/workflows/check_changed_files.py "${{ github.base_ref }}" "${{ github.sha }}"
