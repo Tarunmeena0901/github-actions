@@ -20,7 +20,7 @@ def main():
         print(current_branch)
 
         # Count changed files
-        file_count = count_changed_files(base_branch, current_commit)
+        file_count = count_changed_files(base_branch, current_branch)
 
         print(f"Number of changed files: {file_count}")
 
