@@ -4,7 +4,7 @@ import sys
 def get_current_branch():
     try:
         # Run git command to get the current branch
-        command = "git branch --show-current"
+        command = "git rev-parse HEAD"
         current_branch = os.popen(command).read().strip()
         print(current_branch)
         return current_branch
