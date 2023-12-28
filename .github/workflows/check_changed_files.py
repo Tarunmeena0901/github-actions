@@ -23,10 +23,10 @@ def get_base_branch():
         print(f"Error: {e}")
         sys.exit(1)
 
-def count_changed_files(current_branch):
+def count_changed_files(base_branch , current_branch):
     try:
         # Run git command to get the list of changed files
-        command = f"git diff --name-only {current_branch}"
+        command = f"git diff --name-only {current_branch}..{base_branch}"
         changed_files = os.popen(command).read().splitlines()
 
         # Count the number of changed files
@@ -44,7 +44,7 @@ def main():
         current_branch = get_current_branch()
         print(current_branch)
         # Count changed files
-        file_count = count_changed_files(current_branch)
+        file_count = count_changed_files(base_branch , current_branch)
 
         print(f"Number of changed files: {file_count}")
 
