@@ -15,7 +15,7 @@ def get_current_branch():
 def get_base_branch():
     try:
         # Run git command to get the base branch
-        command = "git remote show origin | grep 'HEAD branch' | cut -d':' -f2 | xargs"
+        command = "git ls-remote origin main | awk '{print $1}'"
         base_branch = os.popen(command).read().strip()
         print(base_branch)
         return base_branch
