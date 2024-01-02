@@ -27,6 +27,7 @@ import sys
 import argparse
 import subprocess
 
+
 def _count_changed_files(base_branch, current_branch):
     """
     Count the number of changed files between two branches.
@@ -56,7 +57,9 @@ def _count_changed_files(base_branch, current_branch):
     try:
         # Run git command to get the list of changed files
         command = f"git diff --name-only {base_branch}...{current_branch} | wc -l"
-        process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        process = subprocess.Popen(
+            command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        )
         output, error = process.communicate()
 
         if process.returncode != 0:
@@ -68,6 +71,7 @@ def _count_changed_files(base_branch, current_branch):
         sys.exit(1)
 
     return file_count
+
 
 def _arg_parser_resolver():
     """Resolve the CLI arguments provided by the user.
@@ -81,14 +85,15 @@ def _arg_parser_resolver():
     """
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "base_branch",
-        type=str,
-        help="Base branch where pull request should be made."),
+        "base_branch", type=str, help="Base branch where pull request should be made."
+    ),
     parser.add_argument(
         "current_commit",
         type=str,
-        help="Current branch from where the pull request is made."),
+        help="Current branch from where the pull request is made.",
+    ),
     return parser.parse_args()
+
 
 def main():
     """
@@ -111,21 +116,20 @@ def main():
     base_branch = args.base_branch
     print(f"You are trying to merge on branch: {base_branch}")  # Print for verification
     current_branch = args.current_commit
-    print(f"You are making commit from your branch: {current_branch}")  # Print for verification
+    print(
+        f"You are making commit from your branch: {current_branch}"
+    )  # Print for verification
     # Count changed files
     file_count = _count_changed_files(base_branch, current_branch)
     print(f"Number of changed files: {file_count}")
     # Check if the count exceeds 20
     if file_count > 20:
-        print(
-            "Error: Too many files (greater than 20) changed in the pull request."
-        )
+        print("Error: Too many files (greater than 20) changed in the pull request.")
         print("Possible issues:")
         print("- Contributor may be merging into an incorrect branch.")
-        print(
-            "- Source branch may be incorrect please use develop as source branch."
-        )
+        print("- Source branch may be incorrect please use develop as source branch.")
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()
