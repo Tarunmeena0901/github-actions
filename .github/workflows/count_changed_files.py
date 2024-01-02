@@ -82,14 +82,10 @@ def _arg_parser_resolver():
     parser.add_argument(
         "base_branch",
         type=str,
-        required=True,
-        default="develop",
         help="Base branch where pull request should be made."),
     parser.add_argument(
         "current_commit",
         type=str,
-        required=True,
-        default=None,
         help="Current branch from where the pull request is made."),
     return parser.parse_args()
 
