@@ -110,7 +110,7 @@ def main():
         SystemExit: If an error occurs during execution.
     """
 
-    args = parse_arguments()
+    args = _arg_parser_resolver()
     base_branch = args.base_branch
     print(f"You are trying to merge on branch: {base_branch}")  # Print for verification
     current_branch = args.current_commit
