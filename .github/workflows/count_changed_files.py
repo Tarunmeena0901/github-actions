@@ -25,6 +25,7 @@ NOTE:
 import os
 import sys
 import argparse
+import subprocess
 
 def _count_changed_files(base_branch, current_branch):
     """
