@@ -26,7 +26,7 @@ import os
 import sys
 import argparse
 
-def count_changed_files(base_branch, current_branch):
+def _count_changed_files(base_branch, current_branch):
     """
     Count the number of changed files between two branches.
 
@@ -40,33 +40,33 @@ def count_changed_files(base_branch, current_branch):
     Raises:
         SystemExit: If an error occurs during execution.
     """
-try:
-    base_branch = f"origin/{base_branch}"
-except Exception as e:
-    print(f"Error setting base_branch: {e}")
-    sys.exit(1)
+    try:
+        base_branch = f"origin/{base_branch}"
+    except Exception as e:
+        print(f"Error setting base_branch: {e}")
+        sys.exit(1)
 
-try:
-    current_branch = f"origin/{current_branch}"
-except Exception as e:
-    print(f"Error setting current_branch: {e}")
-    sys.exit(1)
+    try:
+        current_branch = f"origin/{current_branch}"
+    except Exception as e:
+        print(f"Error setting current_branch: {e}")
+        sys.exit(1)
 
-try:
-    # Run git command to get the list of changed files
-    command = f"git diff --name-only {base_branch}...{current_branch} | wc -l"
-    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    output, error = process.communicate()
+    try:
+        # Run git command to get the list of changed files
+        command = f"git diff --name-only {base_branch}...{current_branch} | wc -l"
+        process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        output, error = process.communicate()
 
-    if process.returncode != 0:
-        raise Exception(f"Error running git diff command: {error.decode('utf-8')}")
+        if process.returncode != 0:
+            raise Exception(f"Error running git diff command: {error.decode('utf-8')}")
 
-    file_count = int(output.strip())
-except Exception as e:
-    print(f"Error: {e}")
-    sys.exit(1)
+        file_count = int(output.strip())
+    except Exception as e:
+        print(f"Error: {e}")
+        sys.exit(1)
 
-return file_count
+    return file_count
 
 def _arg_parser_resolver():
     """Resolve the CLI arguments provided by the user.
@@ -116,7 +116,7 @@ def main():
     current_branch = args.current_commit
     print(f"You are making commit from your branch: {current_branch}")  # Print for verification
     # Count changed files
-    file_count = count_changed_files(base_branch, current_branch)
+    file_count = _count_changed_files(base_branch, current_branch)
     print(f"Number of changed files: {file_count}")
     # Check if the count exceeds 20
     if file_count > 20:
