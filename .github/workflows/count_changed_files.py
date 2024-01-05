@@ -118,7 +118,7 @@ def main():
     file_count = _count_changed_files(base_branch, PR_branch)
     print(f"Number of changed files: {file_count}")
     # Check if the count exceeds 20
-    if arg.file_count > 20:
+    if args.file_count > 20:
         print("Error: Too many files (greater than 20) changed in the pull request.")
         print("Possible issues:")
         print("- Contributor may be merging into an incorrect branch.")
