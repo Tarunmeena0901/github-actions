@@ -48,9 +48,10 @@ def _count_changed_files(base_branch, pr_branch):
     try:
         # Run git command to get the list of changed files
         process = subprocess.Popen(
-            comman, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+            command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
         )
         output, error = process.communicate()
+
     except Exception as e:
         print(f"Error: {e}")
         sys.exit(1)
@@ -107,8 +108,10 @@ def main():
     """
 
     args = _arg_parser_resolver()
+    
     base_branch = args.base_branch
     pr_branch = args.pr_branch
+
     print(f"You are trying to merge on branch: {base_branch}")
     print(f"You are making commit from your branch: {pr_branch}")
 
