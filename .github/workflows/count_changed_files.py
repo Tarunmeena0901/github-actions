@@ -48,7 +48,7 @@ def _count_changed_files(base_branch, pr_branch):
     try:
         # Run git command to get the list of changed files
         process = subprocess.Popen(
-            command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+            comman, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
         )
         output, error = process.communicate()
     except Exception as e:
@@ -115,7 +115,7 @@ def main():
     # Count changed files
     file_count = _count_changed_files(base_branch, pr_branch)
     print(f"Number of changed files: {file_count}")
-    
+
     # Check if the count exceeds 20
     if file_count > args.file_count:
         print("Error: Too many files (greater than 20) changed in the pull request.")
